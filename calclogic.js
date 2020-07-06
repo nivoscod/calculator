@@ -1,8 +1,8 @@
 function DisplayNextState(jsonState, input) {
-   let display = !jsonState ? '' : jsonState.display;
-   let firstOperand = !jsonState ? '' : jsonState.firstOperand;
-   let operator = !jsonState ? '' : jsonState.operator;
-   let secondOperand = !jsonState ? '' : jsonState.secondOperand;
+   let display = !jsonState ? '' : JSON.parse(jsonState)['display']
+   let firstOperand = !jsonState ? '' : JSON.parse(jsonState)['firstOperand'];
+   let operator = !jsonState ? '' : JSON.parse(jsonState)['operator'];
+   let secondOperand = !jsonState ? '' : JSON.parse(jsonState)['secondOperand'];
     let isNumber = !['+', '-', '/', '*', '='].includes(input)
     let currentState = {
         display: display,
@@ -32,7 +32,7 @@ function DisplayNextState(jsonState, input) {
     else {
         if (!operator || (operator && !secondOperand)) currentState.operator = input
         if (operator && secondOperand) {
-            let result = performCalculation(currentState)
+            let result = String(performCalculation(currentState))
             currentState.display = result
             currentState.firstOperand = result
             currentState.secondOperand = ''
@@ -41,7 +41,7 @@ function DisplayNextState(jsonState, input) {
     }
 
     if (currentState.display === '') currentState.display = '0'
-    return currentState
+    return JSON.stringify(currentState)
 }
 
 function performCalculation(jsonState) {
@@ -59,22 +59,19 @@ function performCalculation(jsonState) {
     }
 }
 
-let s = null
-s = DisplayNextState(s, '-')
-console.log(s.display)
-s = DisplayNextState(s, '2')
-console.log(s.display)
-s = DisplayNextState(s, '+')
-console.log(s.display)
-s = DisplayNextState(s, '2')
-console.log(s.display)
-s = DisplayNextState(s, '-')
-console.log(s.display)
-s = DisplayNextState(s, '4')
-console.log(s.display)
-s = DisplayNextState(s, '-')
-console.log(s.display)
-s = DisplayNextState(s, '2')
-console.log(s.display)
-s = DisplayNextState(s, '-')
-console.log(s.display)
+// let s = null
+// s = DisplayNextState(s, '-')
+// console.log(JSON.parse(s).display)
+// s = DisplayNextState(s, '2')
+// console.log(JSON.parse(s).display)
+// s = DisplayNextState(s, '+')
+// console.log(JSON.parse(s).display)
+// s = DisplayNextState(s, '1')
+// console.log(JSON.parse(s).display)
+// s = DisplayNextState(s, '2')
+// console.log(JSON.parse(s).display)
+// s = DisplayNextState(s, '+')
+// console.log(JSON.parse(s).display)
+module.exports ={
+    DisplayNextState
+}
