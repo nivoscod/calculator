@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
 })
 
 router.post('/calculate', (req, res) => {
-    //let jsonState = !req.body['jsonState'] ? null : req.body['jsonState'])
     res.send(DisplayNextState(req.body['jsonState'], req.body['input']))
 })
 
